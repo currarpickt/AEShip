@@ -30,8 +30,7 @@ namespace AEShip
             services.AddControllers();
 
             services.AddDbContext<RepositoryContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"),
-                    x => x.UseNetTopologySuite()));
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
         }
 
         public void ConfigureContainer(ContainerBuilder builder)

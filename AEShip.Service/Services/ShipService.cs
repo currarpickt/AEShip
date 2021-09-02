@@ -5,30 +5,34 @@ using AEShip.Service.Interfaces;
 using AEShip.Service.Models;
 using AEShip.Service.Models.Requests;
 using AEShip.Service.Models.Responses;
-using NetTopologySuite;
-using NetTopologySuite.Geometries;
 
 namespace AEShip.Service.Services
 {
     public class ShipService: IShipService
     {
         private readonly IRepositoryService _repositoryService;
+        private readonly IMapperService _mapperService;
+        private readonly IShipUtilities _shipUtilities;
 
-        public ShipService(IRepositoryService repositoryService)
+        public ShipService(IRepositoryService repositoryService,
+            IMapperService mapperService,
+            IShipUtilities shipUtilities)
         {
             _repositoryService = repositoryService;
+            _mapperService = mapperService;
+            _shipUtilities = shipUtilities;
         }
 
         public void AddShips(IEnumerable<NewShipRequest> ships)
         {
-            var newShips = ships.Select(MapNewShipRequestToShip);
+            var newShips = ships.Select(_mapperService.MapNewShipRequestToShip);
 
             _repositoryService.AddShips(newShips);
         }
 
         public void AddShip(NewShipRequest ship)
         {
-            var newShip = MapNewShipRequestToShip(ship);
+            var newShip = _mapperService.MapNewShipRequestToShip(ship);
             _repositoryService.AddShip(newShip);
         }
 
@@ -37,14 +41,16 @@ namespace AEShip.Service.Services
             _repositoryService.UpdateShipVelocity(id, velocity);
         }
 
-        public IEnumerable<Ship> GetAllShips()
+        public IEnumerable<ShipResponse> GetAllShips()
         {
-            return _repositoryService.GetAllShips();
+            var ships = _repositoryService.GetAllShips();
+            return _mapperService.MapShipsToResponse(ships);
         }
 
-        public IEnumerable<Port> GetAllPorts()
+        public IEnumerable<PortResponse> GetAllPorts()
         {
-            return _repositoryService.GetAllPorts();
+            var ports = _repositoryService.GetAllPorts();
+            return _mapperService.MapPortsToResponse(ports);
         }
 
         public ClosestPortResponse GetClosestPort(string id)
@@ -53,24 +59,19 @@ namespace AEShip.Service.Services
 
             if(ship == null) throw new ShipNotFoundException(id);
 
-            var closestPort = _repositoryService.GetClosestPort(ship.Location);
+            var ports = _repositoryService.GetAllPorts();
 
-            var arrivalTimeInHours = closestPort.Distance / ship.Velocity;
-            var port = closestPort.Port;
+            var shipLocation = new GeoLocation(ship.Latitude, ship.Longitude);
 
-            return new ClosestPortResponse(port.Id, port.Name, port.Location.Y, port.Location.X, arrivalTimeInHours);
-        }
+            var nearestPort = (from p in ports
+                let distance = _shipUtilities.GetDistance(shipLocation, new GeoLocation(p.Latitude, p.Longitude))
+                orderby distance
+                select new ClosestPort(p, distance)).First();
+            
+            var arrivalTimeInHours = nearestPort.Distance / ship.Velocity;
+            var port = nearestPort.Port;
 
-        private Ship MapNewShipRequestToShip(NewShipRequest request)
-        {
-            var geometryFactory = NtsGeometryServices.Instance.CreateGeometryFactory(srid: 4326);
-            return new Ship
-            {
-                Id = request.Id,
-                Name = request.Name,
-                Location = geometryFactory.CreatePoint(new Coordinate(request.Latitude, request.Longitude)),
-                Velocity = request.Velocity
-            };
+            return new ClosestPortResponse(port.Id, port.Name, port.Latitude, port.Longitude, arrivalTimeInHours);
         }
     }
 }

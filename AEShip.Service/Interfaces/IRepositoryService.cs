@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using AEShip.Service.Models;
-using NetTopologySuite.Geometries;
 
 namespace AEShip.Service.Interfaces
 {
@@ -13,8 +12,6 @@ namespace AEShip.Service.Interfaces
         IEnumerable<Port> GetAllPorts();
 
         Port GetPort(string id);
-
-        ClosestPort GetClosestPort(Point location);
 
         void AddShip(Ship ship);
 

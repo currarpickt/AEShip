@@ -1,4 +1,4 @@
-﻿namespace AEShip.Models
+﻿namespace AEShip.Service.Models.Requests
 {
     public class UpdateVelocityRequest
     {

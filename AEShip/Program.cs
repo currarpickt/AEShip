@@ -22,12 +22,12 @@ namespace AEShip
                 {
                     // Initialize database
                     var context = services.GetRequiredService<RepositoryContext>();
-                    DBInitializer.Initialize(context);
+                    DbInitializer.Initialize(context);
                 }
                 catch(Exception ex)
                 {
                     var logger = services.GetRequiredService<ILogger<Program>>();
-                    logger.LogError(ex, "An error occured while seeding the database");
+                    logger.LogError(ex, "An error occurred while seeding the database");
                 }
             }
 

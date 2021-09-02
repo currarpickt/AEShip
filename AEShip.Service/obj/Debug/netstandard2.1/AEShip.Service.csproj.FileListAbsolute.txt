@@ -1,9 +1,0 @@
-C:\Users\gthe\source\repos\AEShip\AEShip.Service\bin\Debug\netstandard2.1\AEShip.Service.deps.json
-C:\Users\gthe\source\repos\AEShip\AEShip.Service\bin\Debug\netstandard2.1\AEShip.Service.dll
-C:\Users\gthe\source\repos\AEShip\AEShip.Service\bin\Debug\netstandard2.1\AEShip.Service.pdb
-C:\Users\gthe\source\repos\AEShip\AEShip.Service\obj\Debug\netstandard2.1\AEShip.Service.AssemblyInfoInputs.cache
-C:\Users\gthe\source\repos\AEShip\AEShip.Service\obj\Debug\netstandard2.1\AEShip.Service.AssemblyInfo.cs
-C:\Users\gthe\source\repos\AEShip\AEShip.Service\obj\Debug\netstandard2.1\AEShip.Service.csproj.CoreCompileInputs.cache
-C:\Users\gthe\source\repos\AEShip\AEShip.Service\obj\Debug\netstandard2.1\AEShip.Service.dll
-C:\Users\gthe\source\repos\AEShip\AEShip.Service\obj\Debug\netstandard2.1\AEShip.Service.pdb
-C:\Users\gthe\source\repos\AEShip\AEShip.Service\obj\Debug\netstandard2.1\EFCoreSqlServerNetTopologySuite.cs

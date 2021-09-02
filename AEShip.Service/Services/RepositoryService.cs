@@ -3,7 +3,6 @@ using System.Linq;
 using AEShip.Service.Exceptions;
 using AEShip.Service.Interfaces;
 using AEShip.Service.Models;
-using NetTopologySuite.Geometries;
 
 namespace AEShip.Service.Services
 {
@@ -44,17 +43,6 @@ namespace AEShip.Service.Services
         public Port GetPort(string id)
         {
             return _repositoryContext.Ports.Find(id);
-        }
-
-        public ClosestPort GetClosestPort(Point location)
-        {
-            var nearestPort = _repositoryContext.Ports
-                .OrderBy(c => c.Location.Distance(location))
-                .First();
-
-            var distance = nearestPort.Location.Distance(location);
-
-            return new ClosestPort(nearestPort, distance);
         }
 
         public void AddShip(Ship ship)

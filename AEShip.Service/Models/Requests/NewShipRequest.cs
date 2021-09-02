@@ -7,7 +7,7 @@
         public double Latitude { get; set; }
         public double Longitude { get; set; }
         /// <summary>
-        /// Value in knot (nautical mile per hour)
+        /// Value in km/hour
         /// </summary>
         public double Velocity { get; set; }
     }

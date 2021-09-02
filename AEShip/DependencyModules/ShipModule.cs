@@ -8,6 +8,14 @@ namespace AEShip.DependencyModules
     {
         protected override void Load(ContainerBuilder builder)
         {
+            builder.RegisterType<MapperService>()
+                .As<IMapperService>()
+                .InstancePerLifetimeScope();
+
+            builder.RegisterType<ShipUtilities>()
+                .As<IShipUtilities>()
+                .InstancePerLifetimeScope();
+
             builder.RegisterType<RepositoryService>()
                 .As<IRepositoryService>()
                 .InstancePerLifetimeScope();

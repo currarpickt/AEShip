@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using AEShip.Models;
 using AEShip.Service.Models;
 using AEShip.Service.Models.Requests;
 using AEShip.Service.Models.Responses;
@@ -14,9 +13,9 @@ namespace AEShip.Service.Interfaces
         
         void UpdateShipVelocity(string id, double velocity);
 
-        IEnumerable<Ship> GetAllShips();
+        IEnumerable<ShipResponse> GetAllShips();
 
-        IEnumerable<Port> GetAllPorts();
+        IEnumerable<PortResponse> GetAllPorts();
 
         ClosestPortResponse GetClosestPort(string id);
     }

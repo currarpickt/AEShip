@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using AEShip.Models;
 using AEShip.Service.Exceptions;
 using AEShip.Service.Interfaces;
 using AEShip.Service.Models.Requests;

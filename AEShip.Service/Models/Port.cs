@@ -1,23 +1,10 @@
-﻿using NetTopologySuite.Geometries;
-
-namespace AEShip.Service.Models
+﻿namespace AEShip.Service.Models
 {
     public class Port
     {
         public string Id { get; set; }
         public string Name { get; set; }
-        public Point Location { get; set; }
-    }
-
-    public class ClosestPort
-    {
-        public Port Port { get; }
-        public double Distance { get; }
-
-        public ClosestPort(Port port, double distance)
-        {
-            Port = port;
-            Distance = distance;
-        }
+        public double Latitude { get; set; }
+        public double Longitude { get; set; }
     }
 }
