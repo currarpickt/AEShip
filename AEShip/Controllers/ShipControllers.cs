@@ -19,13 +19,6 @@ namespace AEShip.Controllers
             _shipService = shipService;
         }
 
-        [HttpGet("ports")]
-        public IStatusCodeActionResult GetPorts()
-        {
-            var ports = _shipService.GetAllPorts();
-            return Ok(ports);
-        }
-
         [HttpPost("add")]
         public IStatusCodeActionResult AddShip(NewShipRequest request)
         {
