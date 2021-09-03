@@ -1,4 +1,4 @@
-# AE Code Challenge
+# AEShip
 
 Rest API to manage the ships and find the nearest port to a given ship with the estimated arrival time based on the velocity and geolocation (longitude and latitude) of the given ship.
 
@@ -41,7 +41,7 @@ public class Ship
 
 ## Find nearest port along with the estimated arrival time
 
-Haversine formula is used to calculate the distance between a port and a ship. For more details, please check `ShipService.cs` and `ShipUtilities.cs`
+Haversine formula is used to calculate the distance between a port and a ship. For more details, please check [`ShipService.cs`](https://github.com/currarpickt/AEShip/blob/main/AEShip.Service/Services/ShipService.cs) and [`ShipUtilities.cs`](https://github.com/currarpickt/AEShip/blob/main/AEShip.Service/Services/ShipUtilities.cs)
 
 To get the nearest port:
 - Get the ship location from ship id
@@ -57,29 +57,19 @@ To calculate the estimated arrival time: `Distance from the nearest port / ship 
 
 1. Open AEShip solution
 2. Build and run AEShip project
-3. It will automatically show [list of ports](http://localhost:51785/api/ship/ports) from initial seeding.
+3. It will automatically show [list of ports](http://localhost:51785/api/ports) from initial seeding.
 4. Use Postman to test the APIs
 
 ## List of APIs
 The available APIs match the challenge stories:
 
-**1. Add ship(s): ```POST api/ship/add``` and ```POST api/ship/addmultiple```** 
+**1. Add ship(s): ```POST api/ships```** 
 
 It will return 200OK when the operation is successful.
 
 Request body:
 
 ```json
-{
-    "Id": "S01",
-    "Name": "Ship_A",
-    "Latitude": -0.89717,
-    "Longitude": -36.21283,
-    "Velocity": 8
-}
-
-OR
-
 [   
     {
         "Id": "S03",
@@ -106,7 +96,7 @@ OR
 
 ```
 
-**2. View all ships: ```GET api/ship/view```** 
+**2. View all ships: ```GET api/ships```** 
 
 It will return 200OK along with the following response when the request is successful.
 
@@ -136,13 +126,12 @@ It will return 200OK along with the following response when the request is succe
 ]
 ```
 
-**3. Update velocity of a ship: ```PUT api/ship/updatevelocity```**
+**3. Update velocity of a ship: ```PUT api/ships/{id}```**
 
 Request body:
 
 ```json
 {
-    "ShipId": "S03",
     "Velocity": 46
 }
 ```
@@ -156,7 +145,7 @@ Response:
 }
 ```
 
-**4. Find the nearest port to a ship with estimated arrival time to the port together with port details: ```GET api/ship/closestport?id=shipId```**
+**4. Find the nearest port to a ship with estimated arrival time to the port together with port details: ```GET api/ships/nearesPort/{id}```**
 
 Response:
 - HTTP 200: When the operation is successful along with the following response
@@ -177,7 +166,7 @@ Response:
 }
 ```
 
-**5. [EXTRA] View all ports available: ```GET api/port/view```**
+**5. [EXTRA] View all ports available: ```GET api/ports```**
 ```json
 [   
     {

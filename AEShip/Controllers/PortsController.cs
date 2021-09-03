@@ -5,17 +5,17 @@ using Microsoft.AspNetCore.Mvc.Infrastructure;
 namespace AEShip.Controllers
 {
     [ApiController]
-    [Route("api/port")]
-    public class PortControllers: ControllerBase
+    [Route("api/[controller]")]
+    public class PortsController: ControllerBase
     {
         private readonly IShipService _shipService;
 
-        public PortControllers(IShipService shipService)
+        public PortsController(IShipService shipService)
         {
             _shipService = shipService;
         }
 
-        [HttpGet("view")]
+        [HttpGet]
         public IStatusCodeActionResult GetPorts()
         {
             var ports = _shipService.GetAllPorts();

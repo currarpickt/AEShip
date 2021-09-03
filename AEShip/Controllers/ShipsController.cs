@@ -9,43 +9,36 @@ using Microsoft.AspNetCore.Mvc.Infrastructure;
 namespace AEShip.Controllers
 {
     [ApiController]
-    [Route("api/ship")]
-    public class ShipControllers: ControllerBase
+    [Route("api/[controller]")]
+    public class ShipsController: ControllerBase
     {
         private readonly IShipService _shipService;
 
-        public ShipControllers(IShipService shipService)
+        public ShipsController(IShipService shipService)
         {
             _shipService = shipService;
         }
 
-        [HttpPost("add")]
-        public IStatusCodeActionResult AddShip(NewShipRequest request)
-        {
-            _shipService.AddShip(request);
-            return Ok();
-        }
-
-        [HttpPost("addmultiple")]
+        [HttpPost]
         public IStatusCodeActionResult AddShips(IEnumerable<NewShipRequest> requests)
         {
             _shipService.AddShips(requests);
             return Ok();
         }
 
-        [HttpGet("view")]
+        [HttpGet]
         public IStatusCodeActionResult GetAllShips()
         {
             var allShips = _shipService.GetAllShips();
             return Ok(allShips);
         }
 
-        [HttpPut("updatevelocity")]
-        public IStatusCodeActionResult UpdateShipVelocity(UpdateVelocityRequest request)
+        [HttpPut("{id}")]
+        public IStatusCodeActionResult UpdateShipVelocity(string id, [FromBody] UpdateVelocityRequest request)
         {
             try
             {
-                _shipService.UpdateShipVelocity(request.ShipId, request.Velocity);
+                _shipService.UpdateShipVelocity(id, request.Velocity);
                 return Ok();
             }
             catch (ShipNotFoundException ex)
@@ -57,8 +50,8 @@ namespace AEShip.Controllers
             }
         }
 
-        [HttpGet("closestport")]
-        public IStatusCodeActionResult GetClosestPort([FromQuery] string id)
+        [HttpGet("nearestPort/{id}")]
+        public IStatusCodeActionResult GetClosestPort(string id)
         {
             try
             {
